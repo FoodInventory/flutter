@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_inventory/pages/add_page.dart';
+import 'package:food_inventory/pages/home_page.dart';
+import 'package:food_inventory/pages/inventory_page.dart';
+import 'package:food_inventory/pages/settings_page.dart';
 
 class AppMenu extends StatefulWidget {
   const AppMenu({super.key, required this.title});
@@ -54,10 +58,10 @@ class AppMenuState extends State<AppMenu> {
           ],
         ),
         body: <Widget>[
-          Container(),
-          Container(),
-          Container(),
-          Container()
+          const HomePage(),
+          const InventoryPage(),
+          const AddPage(),
+          const SettingsPage()
         ][currentPageIndex]);
   }
 }
