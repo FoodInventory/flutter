@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_inventory/pages/home_page.dart';
+import 'package:food_inventory/pages/app_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Food Inventory'),
+      home: const AppMenu(title: 'Food Inventory'),
     );
   }
 }
