@@ -38,22 +38,22 @@ class AppMenuState extends State<AppMenu> {
             NavigationDestination(
               selectedIcon: Icon(Icons.home_rounded),
               icon: Icon(Icons.home_outlined),
-              label: 'Home',
+              label: 'Accueil',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.list_rounded),
               icon: Icon(Icons.list_outlined),
-              label: 'List',
+              label: 'Liste',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.add_rounded),
               icon: Icon(Icons.add_outlined),
-              label: 'Add',
+              label: 'Ajouter',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.settings_rounded),
               icon: Icon(Icons.settings_outlined),
-              label: 'Settings',
+              label: 'Paramètres',
             )
           ],
         ),
