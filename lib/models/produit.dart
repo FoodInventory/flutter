@@ -17,4 +17,17 @@ class Produit {
   String unite;
   int nombre;
   String? image;
+
+  factory Produit.fromJson(Map<String, dynamic> json) {
+    return Produit(
+      barcode: BigInt.parse(json['barcode']),
+      categorie: json['categorie'],
+      nom: json['nom'],
+      marque: json['marque'],
+      quantite: json['quantite'],
+      unite: json['unite'],
+      nombre: json['nombre'],
+      image: json['image'],
+    );
+  }
 }
