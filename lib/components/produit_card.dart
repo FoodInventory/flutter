@@ -65,9 +65,58 @@ class _ProduitCardState extends State<ProduitCard> {
               ],
             ),
             trailing: IconButton(
-              icon: const Icon(Icons.more_vert),
+              icon: const Icon(Icons.edit),
               onPressed: () {
-                // Edit menu
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      scrollable: true,
+                      title: const Text('Modifier'),
+                      content: const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Nom',
+                            ),
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Quantité',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Unité',
+                            ),
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Nombre',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Annuler'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Modifier'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             )),
       ),
