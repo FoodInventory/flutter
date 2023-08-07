@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:http/http.dart' as http;
 
@@ -65,12 +66,28 @@ class _AddPageState extends State<AddPage> {
 
     String jsonString = jsonEncode({'data': data});
 
-    return client.post(uri, body: jsonString, headers: {
+    client.post(uri, body: jsonString, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer ae9f7fdc0d69f0f4a437feacf4bbf8faea4587b7ce7eac3ff43e25635942b10779de3ff006885236fb7000117b9935a84354fb84541d6fde61d2bc746fd442a484d4417a706ca1797e7fcc4d03506a520146dd089f5a6ae069787c0847bc2a11f7d27b88f74761e240112873c5729be1b03def7211c3f7aa0d6237795a4e7bcb',
-    });
+      'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
+    }).then(
+      (response) {
+        if (response.statusCode == 200) {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Produit ajouté avec succès'),
+            ),
+          );
+        } else {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  'Erreur lors de l\'ajout du produit : Code ${response.statusCode}'),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
