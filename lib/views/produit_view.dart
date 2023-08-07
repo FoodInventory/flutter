@@ -13,6 +13,7 @@ class ProduitView extends StatefulWidget {
 
 class _ProduitViewState extends State<ProduitView> {
   Future<List<Produit>> _getProducts() async {
+    var produitList = <Produit>[];
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
     await client.get(uri, headers: {
@@ -22,7 +23,6 @@ class _ProduitViewState extends State<ProduitView> {
     }).then(
       (response) {
         if (response.statusCode == 200) {
-          var produitList = <Produit>[];
           var produits = jsonDecode(response.body)['data'];
           for (var produit in produits) {
             var produitParse = produit['attributes'];
@@ -33,81 +33,78 @@ class _ProduitViewState extends State<ProduitView> {
 
             produitList.add(Produit.fromJson(produitParse));
           }
-          return produitList;
         }
-        return <Produit>[];
       },
     );
-    return <Produit>[];
+    return produitList;
   }
 
   @override
   Widget build(BuildContext context) {
-    // return a list of created sample products;
-    return ListView(
-      children: <Widget>[
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-        createSampleProduit(),
-      ],
-    );
-  }
-
-  Card createSampleProduit() {
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListTile(
-            contentPadding: const EdgeInsets.all(0.0),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                "https://images.openfoodfacts.org/images/products/327/408/000/5003/front_fr.950.full.jpg",
-                height: 80,
-                width: 50,
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: const Text(
-              'Eau de source - Cristaline',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 4),
-                Text(
-                  'Quantité: 1.5L',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
+    return FutureBuilder<List<Produit>>(
+      future: _getProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                Text(
-                  'Nombre: 6',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                      contentPadding: const EdgeInsets.all(0.0),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          snapshot.data![index].image!,
+                          height: 80,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      title: Text(
+                        snapshot.data![index].nom!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 4),
+                          Text(
+                            'Quantité: ${snapshot.data![index].quantite} ${snapshot.data![index].unite}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            'Nombre: ${snapshot.data![index].nombre}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        onPressed: () {
+                          // Edit menu
+                        },
+                      )),
                 ),
-              ],
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {
-                // Edit menu
-              },
-            )),
-      ),
+              );
+            },
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
+      },
     );
   }
 }
