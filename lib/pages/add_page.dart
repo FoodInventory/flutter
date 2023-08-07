@@ -73,6 +73,12 @@ class _AddPageState extends State<AddPage> {
     }).then(
       (response) {
         if (response.statusCode == 200) {
+          categorieController.clear();
+          nomController.clear();
+          marqueController.clear();
+          quantiteController.clear();
+          uniteController.clear();
+          nombreController.clear();
           return ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Produit ajouté avec succès'),
