@@ -10,13 +10,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Food Inventory',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme?.fromSwatch(
+          primarySwatch: Colors.green,
+          primaryColorDark: Colors.green[700],
+          accentColor: Colors.greenAccent[100],
+          backgroundColor: Colors.green[50],
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
       ),
       home: const AppMenu(title: 'Food Inventory'),
