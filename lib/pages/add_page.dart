@@ -49,7 +49,7 @@ class _AddPageState extends State<AddPage> {
     });
   }
 
-  _onAddButtonPressed() {
+  _onAddButtonPressed() async {
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
 
@@ -66,7 +66,7 @@ class _AddPageState extends State<AddPage> {
 
     String jsonString = jsonEncode({'data': data});
 
-    client.post(uri, body: jsonString, headers: {
+    await client.post(uri, body: jsonString, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
