@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'Food Inventory',
       theme: ThemeData(
         colorScheme: ColorScheme?.fromSwatch(
-          primarySwatch: Colors.green,
-          primaryColorDark: Colors.green[700],
-          accentColor: Colors.greenAccent[100],
-          backgroundColor: Colors.green[50],
+          primarySwatch: Colors.blue,
+          primaryColorDark: Colors.blue[700],
+          accentColor: Colors.blueAccent[100],
+          backgroundColor: Colors.blue[50],
           brightness: Brightness.light,
         ),
         useMaterial3: true,
