@@ -5,6 +5,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:http/http.dart' as http;
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -80,15 +81,27 @@ class _AddPageState extends State<AddPage> {
           uniteController.clear();
           nombreController.clear();
           return ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Produit ajouté avec succès'),
+            SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                  title: "Produit ajouté",
+                  message: "Le produit a bien été ajouté à la liste",
+                  contentType: ContentType.success),
             ),
           );
         } else {
           return ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                  'Erreur lors de l\'ajout du produit : Code ${response.statusCode}'),
+              elevation: 0,
+              behavior: SnackBarBehavior.fixed,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                  title: "Erreur lors de l'ajout du produit",
+                  message:
+                      "Le produit n'a pas été ajouté à la liste \nCode d'erreur ${response.statusCode}",
+                  contentType: ContentType.failure),
             ),
           );
         }
