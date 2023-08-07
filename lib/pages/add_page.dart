@@ -20,7 +20,6 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController nomController = TextEditingController();
   final TextEditingController marqueController = TextEditingController();
   final TextEditingController quantiteController = TextEditingController();
-  final TextEditingController uniteController = TextEditingController();
   final TextEditingController nombreController = TextEditingController();
 
   String scannedCode = '';
@@ -63,7 +62,6 @@ class _AddPageState extends State<AddPage> {
         'nom': nomController.text,
         'marque': marqueController.text,
         'quantite': quantiteController.text,
-        'unite': uniteController.text,
         'nombre': nombreController.text,
         'image': productImage,
       };
@@ -81,7 +79,6 @@ class _AddPageState extends State<AddPage> {
             nomController.clear();
             marqueController.clear();
             quantiteController.clear();
-            uniteController.clear();
             nombreController.clear();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -179,20 +176,6 @@ class _AddPageState extends State<AddPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer une quantité';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: uniteController,
-                  decoration: const InputDecoration(
-                    labelText: 'Unité du produit',
-                    icon: Icon(Icons.storage),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Veuillez entrer une unité';
                     }
                     return null;
                   },

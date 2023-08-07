@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class ProduitCard extends StatefulWidget {
   final String nom;
   final String image;
-  final double quantite;
-  final String unite;
+  final String quantite;
   final int nombre;
 
   const ProduitCard(
@@ -12,7 +11,6 @@ class ProduitCard extends StatefulWidget {
       required this.nom,
       required this.image,
       required this.quantite,
-      required this.unite,
       required this.nombre});
 
   @override
@@ -51,7 +49,7 @@ class _ProduitCardState extends State<ProduitCard> {
               children: [
                 const SizedBox(height: 4),
                 Text(
-                  'Quantité: ${widget.quantite} ${widget.unite}',
+                  'Quantité: ${widget.quantite}',
                   style: const TextStyle(
                     fontSize: 14,
                   ),

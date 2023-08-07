@@ -5,7 +5,6 @@ class Produit {
       this.nom,
       this.marque,
       required this.quantite,
-      required this.unite,
       required this.nombre,
       this.image});
 
@@ -13,8 +12,7 @@ class Produit {
   String? categorie;
   String? nom;
   String? marque;
-  double quantite;
-  String unite;
+  String? quantite;
   int nombre;
   String? image;
 
@@ -24,7 +22,6 @@ class Produit {
         nom: json["nom"],
         marque: json["marque"],
         quantite: json["quantite"],
-        unite: json["unite"],
         nombre: json["nombre"],
         image: json["image"],
       );
