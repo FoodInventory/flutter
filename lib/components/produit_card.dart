@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProduitCard extends StatefulWidget {
   final String nom;
+  final String marque;
   final String image;
   final String quantite;
   final int nombre;
@@ -9,6 +10,7 @@ class ProduitCard extends StatefulWidget {
   const ProduitCard(
       {super.key,
       required this.nom,
+      required this.marque,
       required this.image,
       required this.quantite,
       required this.nombre});
@@ -39,7 +41,7 @@ class _ProduitCardState extends State<ProduitCard> {
               ),
             ),
             title: Text(
-              widget.nom,
+              '${widget.marque} ${widget.nom}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
