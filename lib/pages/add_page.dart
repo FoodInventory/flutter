@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:food_inventory/services/produit_service.dart';
@@ -51,15 +52,48 @@ class _AddPageState extends State<AddPage> {
 
   _onAddButtonPressed() async {
     if (_formKey.currentState!.validate()) {
-      produitService.addProduit(
-          context,
-          scannedCode,
-          categorieController.text,
-          nomController.text,
-          marqueController.text,
-          quantiteController.text,
-          nombreController.text,
-          productImage);
+      produitService
+          .addProduit(
+              context,
+              scannedCode,
+              categorieController.text,
+              nomController.text,
+              marqueController.text,
+              quantiteController.text,
+              nombreController.text,
+              productImage)
+          .then(
+        (response) {
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: "Produit ajouté",
+                  message: "Le produit a bien été ajouté à la liste",
+                  contentType: ContentType.success,
+                ),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.fixed,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: "Erreur lors de l'ajout du produit",
+                  message:
+                      "Le produit n'a pas été ajouté à la liste \nCode d'erreur ${response.statusCode}",
+                  contentType: ContentType.failure,
+                ),
+              ),
+            );
+          }
+        },
+      );
     }
   }
 
