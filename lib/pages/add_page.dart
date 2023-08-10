@@ -115,7 +115,8 @@ class _AddPageState extends State<AddPage> {
                 TextFormField(
                   controller: categorieController,
                   decoration: const InputDecoration(
-                    labelText: 'Catégorie du produit',
+                    labelText: 'Catégorie',
+                    hintText: 'Exemple : Boissons',
                     icon: Icon(Icons.category),
                   ),
                   validator: (value) {
@@ -129,7 +130,8 @@ class _AddPageState extends State<AddPage> {
                 TextFormField(
                   controller: nomController,
                   decoration: const InputDecoration(
-                    labelText: 'Nom du produit',
+                    labelText: 'Nom',
+                    hintText: 'Exemple : Eau',
                     icon: Icon(Icons.shopping_bag),
                   ),
                   validator: (value) {
@@ -143,7 +145,8 @@ class _AddPageState extends State<AddPage> {
                 TextFormField(
                   controller: marqueController,
                   decoration: const InputDecoration(
-                    labelText: 'Marque du produit',
+                    labelText: 'Marque',
+                    hintText: 'Exemple : Evian',
                     icon: Icon(Icons.branding_watermark),
                   ),
                   validator: (value) {
@@ -157,7 +160,8 @@ class _AddPageState extends State<AddPage> {
                 TextFormField(
                   controller: quantiteController,
                   decoration: const InputDecoration(
-                    labelText: 'Quantité du produit',
+                    labelText: 'Quantité',
+                    hintText: 'Exemple : 1.5L',
                     icon: Icon(Icons.format_list_numbered),
                   ),
                   validator: (value) {
@@ -171,7 +175,8 @@ class _AddPageState extends State<AddPage> {
                 TextFormField(
                   controller: nombreController,
                   decoration: const InputDecoration(
-                    labelText: 'Nombre de ce produit',
+                    labelText: 'Nombre',
+                    hintText: 'Exemple : 1',
                     icon: Icon(Icons.filter_1),
                   ),
                   validator: (value) {
