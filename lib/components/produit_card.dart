@@ -26,6 +26,11 @@ class _ProduitCardState extends State<ProduitCard> {
   Widget build(BuildContext context) {
     Color accentColor = Theme.of(context).colorScheme.secondaryContainer;
 
+    TextEditingController nomController = TextEditingController();
+    TextEditingController marqueController = TextEditingController();
+    TextEditingController quantiteController = TextEditingController();
+    TextEditingController nombreController = TextEditingController();
+
     return badges.Badge(
       badgeContent: Text(
         widget.nombre > 99 ? '99+' : widget.nombre.toString(),
@@ -97,33 +102,41 @@ class _ProduitCardState extends State<ProduitCard> {
                     actions: [
                       TextButton(
                           onPressed: () {
+                            nomController.text = widget.nom;
+                            marqueController.text = widget.marque;
+                            quantiteController.text = widget.quantite;
+                            nombreController.text = widget.nombre.toString();
                             showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
                                   scrollable: true,
                                   title: const Text('Modifier'),
-                                  content: const Column(
+                                  content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextField(
-                                        decoration: InputDecoration(
+                                        controller: nomController,
+                                        decoration: const InputDecoration(
                                           labelText: 'Nom',
                                         ),
                                       ),
                                       TextField(
-                                        decoration: InputDecoration(
-                                          labelText: 'Quantité',
+                                        controller: marqueController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Marque',
                                         ),
                                         keyboardType: TextInputType.number,
                                       ),
                                       TextField(
-                                        decoration: InputDecoration(
-                                          labelText: 'Unité',
+                                        controller: quantiteController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Quantité',
                                         ),
                                       ),
                                       TextField(
-                                        decoration: InputDecoration(
+                                        controller: nombreController,
+                                        decoration: const InputDecoration(
                                           labelText: 'Nombre',
                                         ),
                                         keyboardType: TextInputType.number,
