@@ -19,14 +19,16 @@ class AppMenuState extends State<AppMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          elevation: 20,
-          centerTitle: mounted,
-        ),
+        appBar: currentPageIndex == 3
+            ? AppBar(
+                title: Text(
+                  widget.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                elevation: 20,
+                centerTitle: mounted,
+              )
+            : null,
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
