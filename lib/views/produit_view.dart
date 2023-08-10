@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:food_inventory/components/produit_card.dart';
 import 'package:food_inventory/models/produit.dart';
-import 'package:http/http.dart' as http;
+import 'package:food_inventory/services/produit_service.dart';
 
 class ProduitView extends StatefulWidget {
   const ProduitView({super.key});
@@ -13,37 +11,12 @@ class ProduitView extends StatefulWidget {
 }
 
 class _ProduitViewState extends State<ProduitView> {
-  Future<List<Produit>> _getProducts() async {
-    var produitList = <Produit>[];
-    var client = http.Client();
-    var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
-    await client.get(uri, headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
-    }).then(
-      (response) {
-        if (response.statusCode == 200) {
-          var produits = jsonDecode(response.body)['data'];
-          for (var produit in produits) {
-            var produitParse = produit['attributes'];
-            produitParse.remove('updatedAt');
-            produitParse.remove('createdAt');
-            produitParse.remove('deletedAt');
-            produitParse.remove('locale');
-
-            produitList.add(Produit.fromJson(produitParse));
-          }
-        }
-      },
-    );
-    return produitList;
-  }
+  final ProduitService produitService = ProduitService();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Produit>>(
-      future: _getProducts(),
+      future: produitService.getProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(

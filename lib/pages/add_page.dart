@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:food_inventory/services/produit_service.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
-import 'package:http/http.dart' as http;
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -24,6 +20,8 @@ class _AddPageState extends State<AddPage> {
 
   String scannedCode = '';
   String productImage = '';
+
+  final ProduitService produitService = ProduitService();
 
   void _onScanButtonPressed() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
@@ -53,60 +51,15 @@ class _AddPageState extends State<AddPage> {
 
   _onAddButtonPressed() async {
     if (_formKey.currentState!.validate()) {
-      var client = http.Client();
-      var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
-
-      Map<String, dynamic> data = {
-        'barcode': scannedCode,
-        'categorie': categorieController.text,
-        'nom': nomController.text,
-        'marque': marqueController.text,
-        'quantite': quantiteController.text,
-        'nombre': nombreController.text,
-        'image': productImage,
-      };
-
-      String jsonString = jsonEncode({'data': data});
-
-      await client.post(uri, body: jsonString, headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
-      }).then(
-        (response) {
-          if (response.statusCode == 200) {
-            categorieController.clear();
-            nomController.clear();
-            marqueController.clear();
-            quantiteController.clear();
-            nombreController.clear();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 0,
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                    title: "Produit ajouté",
-                    message: "Le produit a bien été ajouté à la liste",
-                    contentType: ContentType.success),
-              ),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 0,
-                behavior: SnackBarBehavior.fixed,
-                backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                    title: "Erreur lors de l'ajout du produit",
-                    message:
-                        "Le produit n'a pas été ajouté à la liste \nCode d'erreur ${response.statusCode}",
-                    contentType: ContentType.failure),
-              ),
-            );
-          }
-        },
-      );
+      produitService.addProduit(
+          context,
+          scannedCode,
+          categorieController.text,
+          nomController.text,
+          marqueController.text,
+          quantiteController.text,
+          nombreController.text,
+          productImage);
     }
   }
 
