@@ -30,95 +30,138 @@ class _ProduitCardState extends State<ProduitCard> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
-            contentPadding: const EdgeInsets.all(0.0),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                widget.image,
-                height: 80,
-                width: 50,
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Text(
-              '${widget.marque} ${widget.nom}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(
-                  'Quantité: ${widget.quantite}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  'Nombre: ${widget.nombre}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      scrollable: true,
-                      title: const Text('Modifier'),
-                      content: const Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Nom',
-                            ),
+          onTap: () {
+            // show ListTile details in an AlertDialog with ListTile content and image
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  scrollable: true,
+                  title: const Text('Détails du produit'),
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            widget.image,
+                            height: 80,
+                            width: 50,
+                            fit: BoxFit.cover,
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Quantité',
-                            ),
-                            keyboardType: TextInputType.number,
+                        ),
+                        title: Text(
+                          '${widget.marque} ${widget.nom}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Unité',
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 4),
+                            Text(
+                              'Quantité: ${widget.quantite}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Nombre',
+                            Text(
+                              'Nombre: ${widget.nombre}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Annuler'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Modifier'),
-                        ),
-                      ],
-                    );
-                  },
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                scrollable: true,
+                                title: const Text('Modifier'),
+                                content: const Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Nom',
+                                      ),
+                                    ),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Quantité',
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Unité',
+                                      ),
+                                    ),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Nombre',
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Annuler'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Modifier'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: const Text('Modifier')),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Fermer'),
+                    ),
+                  ],
                 );
               },
-            )),
+            );
+          },
+          // add a badge for the number of products
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(
+              widget.image,
+              height: 80,
+              width: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+          contentPadding: const EdgeInsets.all(0.0),
+          title: Text(
+            '${widget.marque} ${widget.nom}',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
     );
   }
