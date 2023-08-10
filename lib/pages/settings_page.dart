@@ -42,7 +42,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       Animation<double> animation,
                       Animation<double> secondaryAnimation,
                     ) {
-                      // dialog de presentation de l'application avec l'icon, le nom et la version
                       return AlertDialog(
                         content: const Column(
                           mainAxisSize: MainAxisSize.min,
@@ -61,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Text('Version 1.0.0'),
                             SizedBox(height: 10),
                             Text(
-                              '© 2021 - bastianfbr',
+                              '© 2023 - bastianfbr',
                               style: TextStyle(
                                 fontSize: 15,
                               ),
