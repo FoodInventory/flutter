@@ -31,25 +31,18 @@ class ProduitService {
     return produitList;
   }
 
-  Future<http.Response> addProduit(
-      String scannedCode,
-      String categorie,
-      String nom,
-      String marque,
-      String quantite,
-      String nombre,
-      String productImage) async {
+  Future<http.Response> addProduit(Produit produit) async {
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
 
     Map<String, dynamic> data = {
-      'barcode': scannedCode,
-      'categorie': categorie,
-      'nom': nom,
-      'marque': marque,
-      'quantite': quantite,
-      'nombre': nombre,
-      'image': productImage,
+      'barcode': produit.barcode.toString(),
+      'categorie': produit.categorie,
+      'nom': produit.nom,
+      'marque': produit.marque,
+      'quantite': produit.quantite,
+      'nombre': produit.nombre,
+      'image': produit.image,
     };
 
     String jsonString = jsonEncode({'data': data});

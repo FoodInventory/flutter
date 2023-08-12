@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:food_inventory/models/produit.dart';
 import 'package:food_inventory/services/produit_service.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
@@ -52,16 +53,16 @@ class _AddPageState extends State<AddPage> {
 
   _onAddButtonPressed() async {
     if (_formKey.currentState!.validate()) {
-      produitService
-          .addProduit(
-              scannedCode,
-              categorieController.text,
-              nomController.text,
-              marqueController.text,
-              quantiteController.text,
-              nombreController.text,
-              productImage)
-          .then(
+      Produit produit = Produit(
+        barcode: BigInt.parse(scannedCode),
+        categorie: categorieController.text,
+        nom: nomController.text,
+        marque: marqueController.text,
+        quantite: quantiteController.text,
+        nombre: int.parse(nombreController.text),
+        image: productImage,
+      );
+      produitService.addProduit(produit).then(
         (response) {
           if (response.statusCode == 200) {
             ScaffoldMessenger.of(context).showSnackBar(
