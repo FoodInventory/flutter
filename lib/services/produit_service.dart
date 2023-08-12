@@ -47,7 +47,7 @@ class ProduitService {
 
     String jsonString = jsonEncode({'data': data});
 
-    return client.post(uri, body: jsonString, headers: {
+    return await client.post(uri, body: jsonString, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
