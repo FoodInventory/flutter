@@ -31,6 +31,39 @@ class ProduitService {
     return produitList;
   }
 
+  Future<Produit> getProduitById(String barcode) async {
+    var client = http.Client();
+    var uri =
+        Uri.parse('https://foodapi.bastianfabre.fr/api/produits/code/$barcode');
+
+    Produit produit = Produit(
+      barcode: BigInt.parse('0'),
+      categorie: '',
+      nom: '',
+      marque: '',
+      quantite: '',
+      nombre: 0,
+      image: '',
+    );
+
+    await client.get(uri, headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
+    }).then((response) {
+      if (response.statusCode == 200) {
+        var produitParse = jsonDecode(response.body)['data'];
+        produitParse.remove('updatedAt');
+        produitParse.remove('createdAt');
+        produitParse.remove('deletedAt');
+        produitParse.remove('locale');
+
+        produit = Produit.fromJson(produitParse);
+      }
+    });
+    return produit;
+  }
+
   Future<http.Response> addProduit(Produit produit) async {
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
