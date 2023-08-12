@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_inventory/models/produit.dart';
@@ -33,7 +32,6 @@ class ProduitService {
   }
 
   Future<http.Response> addProduit(
-      BuildContext context,
       String scannedCode,
       String categorie,
       String nom,

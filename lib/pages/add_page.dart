@@ -54,7 +54,6 @@ class _AddPageState extends State<AddPage> {
     if (_formKey.currentState!.validate()) {
       produitService
           .addProduit(
-              context,
               scannedCode,
               categorieController.text,
               nomController.text,
