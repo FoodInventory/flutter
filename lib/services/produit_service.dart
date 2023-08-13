@@ -102,7 +102,7 @@ class ProduitService {
       'image': produit.image,
     };
 
-    String jsonString = jsonEncode({'data': data});
+    String jsonString = jsonEncode(data);
 
     return await client.put(uri, body: jsonString, headers: {
       'Accept': 'application/json',
