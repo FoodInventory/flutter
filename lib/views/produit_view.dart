@@ -11,12 +11,10 @@ class ProduitView extends StatefulWidget {
 }
 
 class _ProduitViewState extends State<ProduitView> {
-  final ProduitService produitService = ProduitService();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Produit>>(
-      future: produitService.getProducts(),
+      future: ProduitService.getProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(

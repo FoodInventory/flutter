@@ -23,8 +23,6 @@ class _AddPageState extends State<AddPage> {
   String scannedCode = '';
   String productImage = '';
 
-  final ProduitService produitService = ProduitService();
-
   void _onScanButtonPressed() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       '#ff6666',
@@ -62,7 +60,7 @@ class _AddPageState extends State<AddPage> {
         nombre: int.parse(nombreController.text),
         image: productImage,
       );
-      produitService.addProduit(produit).then(
+      ProduitService.addProduit(produit).then(
         (response) {
           if (response.statusCode == 200) {
             ScaffoldMessenger.of(context).showSnackBar(
