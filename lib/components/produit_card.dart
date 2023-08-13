@@ -4,10 +4,11 @@ import 'package:badges/badges.dart' as badges;
 import 'package:food_inventory/models/produit.dart';
 import 'package:food_inventory/services/produit_service.dart';
 
+// ignore: must_be_immutable
 class ProduitCard extends StatefulWidget {
-  final Produit produit;
+  late Produit produit;
 
-  const ProduitCard({super.key, required this.produit});
+  ProduitCard({super.key, required this.produit});
 
   @override
   State<ProduitCard> createState() => _ProduitCardState();
@@ -120,7 +121,7 @@ class _ProduitCardState extends State<ProduitCard> {
                                         decoration: const InputDecoration(
                                           labelText: 'Marque',
                                         ),
-                                        keyboardType: TextInputType.number,
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: quantiteController,
@@ -158,7 +159,11 @@ class _ProduitCardState extends State<ProduitCard> {
                                           image: widget.produit.image,
                                         );
                                         ProduitService.updateProduit(newProduit)
-                                            .then((response) {});
+                                            .then((response) {
+                                          setState(() {
+                                            widget.produit = newProduit;
+                                          });
+                                        });
                                         Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },
