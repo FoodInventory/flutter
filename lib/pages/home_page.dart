@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_inventory/components/produit_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,21 +13,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 100),
-      child: const Column(
+      child: Column(
         children: [
           Card(
             child: SizedBox(
               height: 100,
               child: Center(
                 child: ListTile(
-                  title: Text(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProduitList(),
+                      ),
+                    );
+                  },
+                  title: const Text(
                     'Liste de la cave',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.home_rounded,
                     size: 40,
                   ),
@@ -34,10 +43,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Card(
+          const Card(
             child: SizedBox(
               height: 100,
               child: Center(
@@ -57,10 +66,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Card(
+          const Card(
             child: SizedBox(
               height: 100,
               child: Center(
@@ -80,10 +89,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Card(
+          const Card(
             child: SizedBox(
               height: 100,
               child: Center(
@@ -103,10 +112,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Card(
+          const Card(
             child: SizedBox(
               height: 100,
               child: Center(
