@@ -86,4 +86,28 @@ class ProduitService {
       'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
     });
   }
+
+  Future<http.Response> updateProduit(Produit produit) async {
+    var client = http.Client();
+    var uri = Uri.parse(
+        'https://foodapi.bastianfabre.fr/api/produits/${produit.barcode}');
+
+    Map<String, dynamic> data = {
+      'barcode': produit.barcode.toString(),
+      'categorie': produit.categorie,
+      'nom': produit.nom,
+      'marque': produit.marque,
+      'quantite': produit.quantite,
+      'nombre': produit.nombre,
+      'image': produit.image,
+    };
+
+    String jsonString = jsonEncode({'data': data});
+
+    return await client.put(uri, body: jsonString, headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
+    });
+  }
 }
