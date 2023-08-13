@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_inventory/pages/add_page.dart';
 import 'package:food_inventory/pages/home_page.dart';
-import 'package:food_inventory/pages/inventory_page.dart';
+import 'package:food_inventory/pages/shop_page.dart';
 import 'package:food_inventory/pages/settings_page.dart';
 
 class AppMenu extends StatefulWidget {
@@ -56,7 +56,7 @@ class AppMenuState extends State<AppMenu> {
         ),
         body: <Widget>[
           const HomePage(),
-          const InventoryPage(),
+          const ShopPage(),
           const SettingsPage()
         ][currentPageIndex]);
   }
