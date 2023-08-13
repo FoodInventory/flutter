@@ -113,6 +113,7 @@ class _ProduitCardState extends State<ProduitCard> {
                                         decoration: const InputDecoration(
                                           labelText: 'Nom',
                                         ),
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: marqueController,
@@ -126,6 +127,7 @@ class _ProduitCardState extends State<ProduitCard> {
                                         decoration: const InputDecoration(
                                           labelText: 'Quantité',
                                         ),
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: nombreController,
