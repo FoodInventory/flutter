@@ -18,7 +18,6 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController nomController = TextEditingController();
   final TextEditingController marqueController = TextEditingController();
   final TextEditingController quantiteController = TextEditingController();
-  final TextEditingController nombreController = TextEditingController();
 
   String scannedCode = '';
   String productImage = '';
@@ -57,7 +56,6 @@ class _AddPageState extends State<AddPage> {
         nom: nomController.text,
         marque: marqueController.text,
         quantite: quantiteController.text,
-        nombre: int.parse(nombreController.text),
         image: productImage,
       );
       ProduitService.addProduit(produit).then(
@@ -169,22 +167,6 @@ class _AddPageState extends State<AddPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer une quantité';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: nombreController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre',
-                    hintText: 'Exemple : 1',
-                    icon: Icon(Icons.filter_1),
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Veuillez entrer un nombre';
                     }
                     return null;
                   },

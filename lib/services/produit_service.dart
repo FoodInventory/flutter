@@ -42,7 +42,6 @@ class ProduitService {
       nom: '',
       marque: '',
       quantite: '',
-      nombre: 0,
       image: '',
     );
 
@@ -74,7 +73,6 @@ class ProduitService {
       'nom': produit.nom,
       'marque': produit.marque,
       'quantite': produit.quantite,
-      'nombre': produit.nombre,
       'image': produit.image,
     };
 
@@ -98,7 +96,6 @@ class ProduitService {
       'nom': produit.nom,
       'marque': produit.marque,
       'quantite': produit.quantite,
-      'nombre': produit.nombre,
       'image': produit.image,
     };
 

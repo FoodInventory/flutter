@@ -5,7 +5,6 @@ class Produit {
       this.nom,
       this.marque,
       required this.quantite,
-      required this.nombre,
       this.image});
 
   BigInt barcode;
@@ -13,7 +12,6 @@ class Produit {
   String? nom;
   String? marque;
   String? quantite;
-  int nombre;
   String? image;
 
   factory Produit.fromJson(Map<String, dynamic> json) => Produit(
@@ -22,7 +20,6 @@ class Produit {
         nom: json["nom"],
         marque: json["marque"],
         quantite: json["quantite"],
-        nombre: json["nombre"],
         image: json["image"],
       );
 }

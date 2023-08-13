@@ -27,7 +27,6 @@ class _ProduitViewState extends State<ProduitView> {
                 marque: snapshot.data![index].marque,
                 image: snapshot.data![index].image,
                 quantite: snapshot.data![index].quantite,
-                nombre: snapshot.data![index].nombre,
               );
               return ProduitCard(produit: produit);
             },
