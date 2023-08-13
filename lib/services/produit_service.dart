@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:food_inventory/models/produit.dart';
 
 class ProduitService {
-  Future<List<Produit>> getProducts() async {
+  static Future<List<Produit>> getProducts() async {
     var produitList = <Produit>[];
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
@@ -31,7 +31,7 @@ class ProduitService {
     return produitList;
   }
 
-  Future<Produit> getProduitById(String barcode) async {
+  static Future<Produit> getProduitById(String barcode) async {
     var client = http.Client();
     var uri =
         Uri.parse('https://foodapi.bastianfabre.fr/api/produits/code/$barcode');
@@ -64,7 +64,7 @@ class ProduitService {
     return produit;
   }
 
-  Future<http.Response> addProduit(Produit produit) async {
+  static Future<http.Response> addProduit(Produit produit) async {
     var client = http.Client();
     var uri = Uri.parse('https://foodapi.bastianfabre.fr/api/produits');
 
@@ -81,6 +81,30 @@ class ProduitService {
     String jsonString = jsonEncode({'data': data});
 
     return await client.post(uri, body: jsonString, headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',
+    });
+  }
+
+  static Future<http.Response> updateProduit(Produit produit) async {
+    var client = http.Client();
+    var uri = Uri.parse(
+        'https://foodapi.bastianfabre.fr/api/produits/code/${produit.barcode}');
+
+    Map<String, dynamic> data = {
+      'barcode': produit.barcode.toString(),
+      'categorie': produit.categorie,
+      'nom': produit.nom,
+      'marque': produit.marque,
+      'quantite': produit.quantite,
+      'nombre': produit.nombre,
+      'image': produit.image,
+    };
+
+    String jsonString = jsonEncode(data);
+
+    return await client.put(uri, body: jsonString, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${dotenv.env['API_TOKEN']!}',

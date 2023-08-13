@@ -11,24 +11,25 @@ class ProduitView extends StatefulWidget {
 }
 
 class _ProduitViewState extends State<ProduitView> {
-  final ProduitService produitService = ProduitService();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Produit>>(
-      future: produitService.getProducts(),
+      future: ProduitService.getProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              return ProduitCard(
-                nom: snapshot.data![index].nom!,
-                marque: snapshot.data![index].marque!,
-                image: snapshot.data![index].image!,
-                quantite: snapshot.data![index].quantite!,
+              Produit produit = Produit(
+                nom: snapshot.data![index].nom,
+                categorie: snapshot.data![index].categorie,
+                barcode: snapshot.data![index].barcode,
+                marque: snapshot.data![index].marque,
+                image: snapshot.data![index].image,
+                quantite: snapshot.data![index].quantite,
                 nombre: snapshot.data![index].nombre,
               );
+              return ProduitCard(produit: produit);
             },
           );
         } else if (snapshot.hasError) {

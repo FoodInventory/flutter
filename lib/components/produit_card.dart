@@ -1,21 +1,14 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:food_inventory/models/produit.dart';
+import 'package:food_inventory/services/produit_service.dart';
 
+// ignore: must_be_immutable
 class ProduitCard extends StatefulWidget {
-  final String nom;
-  final String marque;
-  final String image;
-  final String quantite;
-  final int nombre;
+  late Produit produit;
 
-  const ProduitCard(
-      {super.key,
-      required this.nom,
-      required this.marque,
-      required this.image,
-      required this.quantite,
-      required this.nombre});
+  ProduitCard({super.key, required this.produit});
 
   @override
   State<ProduitCard> createState() => _ProduitCardState();
@@ -33,7 +26,7 @@ class _ProduitCardState extends State<ProduitCard> {
 
     return badges.Badge(
       badgeContent: Text(
-        widget.nombre > 99 ? '99+' : widget.nombre.toString(),
+        widget.produit.nombre > 99 ? '99+' : widget.produit.nombre.toString(),
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -66,14 +59,14 @@ class _ProduitCardState extends State<ProduitCard> {
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(
-                              widget.image,
+                              widget.produit.image!,
                               height: 80,
                               width: 50,
                               fit: BoxFit.cover,
                             ),
                           ),
                           title: Text(
-                            '${widget.marque} ${widget.nom}',
+                            '${widget.produit.marque} ${widget.produit.nom}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -83,13 +76,13 @@ class _ProduitCardState extends State<ProduitCard> {
                             children: [
                               const SizedBox(height: 4),
                               Text(
-                                'Quantité: ${widget.quantite}',
+                                'Quantité: ${widget.produit.quantite}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                'Nombre: ${widget.nombre}',
+                                'Nombre: ${widget.produit.nombre}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                 ),
@@ -102,10 +95,11 @@ class _ProduitCardState extends State<ProduitCard> {
                     actions: [
                       TextButton(
                           onPressed: () {
-                            nomController.text = widget.nom;
-                            marqueController.text = widget.marque;
-                            quantiteController.text = widget.quantite;
-                            nombreController.text = widget.nombre.toString();
+                            nomController.text = widget.produit.nom!;
+                            marqueController.text = widget.produit.marque!;
+                            quantiteController.text = widget.produit.quantite!;
+                            nombreController.text =
+                                widget.produit.nombre.toString();
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -120,19 +114,21 @@ class _ProduitCardState extends State<ProduitCard> {
                                         decoration: const InputDecoration(
                                           labelText: 'Nom',
                                         ),
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: marqueController,
                                         decoration: const InputDecoration(
                                           labelText: 'Marque',
                                         ),
-                                        keyboardType: TextInputType.number,
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: quantiteController,
                                         decoration: const InputDecoration(
                                           labelText: 'Quantité',
                                         ),
+                                        keyboardType: TextInputType.text,
                                       ),
                                       TextField(
                                         controller: nombreController,
@@ -152,6 +148,23 @@ class _ProduitCardState extends State<ProduitCard> {
                                     ),
                                     TextButton(
                                       onPressed: () {
+                                        Produit newProduit = Produit(
+                                          barcode: widget.produit.barcode,
+                                          categorie: widget.produit.categorie,
+                                          nom: nomController.text,
+                                          marque: marqueController.text,
+                                          quantite: quantiteController.text,
+                                          nombre:
+                                              int.parse(nombreController.text),
+                                          image: widget.produit.image,
+                                        );
+                                        ProduitService.updateProduit(newProduit)
+                                            .then((response) {
+                                          setState(() {
+                                            widget.produit = newProduit;
+                                          });
+                                        });
+                                        Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },
                                       child: const Text('Modifier'),
@@ -176,7 +189,7 @@ class _ProduitCardState extends State<ProduitCard> {
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
-                widget.image,
+                widget.produit.image!,
                 height: 80,
                 width: 50,
                 fit: BoxFit.cover,
@@ -184,7 +197,7 @@ class _ProduitCardState extends State<ProduitCard> {
             ),
             contentPadding: const EdgeInsets.all(0.0),
             title: Text(
-              '${widget.marque} ${widget.nom}',
+              '${widget.produit.marque} ${widget.produit.nom}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -194,7 +207,7 @@ class _ProduitCardState extends State<ProduitCard> {
               children: [
                 const SizedBox(height: 4),
                 Text(
-                  widget.quantite,
+                  widget.produit.quantite!,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,

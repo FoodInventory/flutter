@@ -23,8 +23,6 @@ class _AddPageState extends State<AddPage> {
   String scannedCode = '';
   String productImage = '';
 
-  final ProduitService produitService = ProduitService();
-
   void _onScanButtonPressed() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       '#ff6666',
@@ -62,7 +60,7 @@ class _AddPageState extends State<AddPage> {
         nombre: int.parse(nombreController.text),
         image: productImage,
       );
-      produitService.addProduit(produit).then(
+      ProduitService.addProduit(produit).then(
         (response) {
           if (response.statusCode == 200) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -119,6 +117,7 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'Exemple : Boissons',
                     icon: Icon(Icons.category),
                   ),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer une catégorie';
@@ -134,6 +133,7 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'Exemple : Eau',
                     icon: Icon(Icons.shopping_bag),
                   ),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer un nom de produit';
@@ -149,6 +149,7 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'Exemple : Evian',
                     icon: Icon(Icons.branding_watermark),
                   ),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer une marque';
@@ -164,6 +165,7 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'Exemple : 1.5L',
                     icon: Icon(Icons.format_list_numbered),
                   ),
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer une quantité';
@@ -179,6 +181,7 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'Exemple : 1',
                     icon: Icon(Icons.filter_1),
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Veuillez entrer un nombre';
