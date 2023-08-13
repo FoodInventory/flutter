@@ -19,7 +19,7 @@ class AppMenuState extends State<AppMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: currentPageIndex == 3
+        appBar: currentPageIndex == 2
             ? AppBar(
                 title: Text(
                   widget.title,
