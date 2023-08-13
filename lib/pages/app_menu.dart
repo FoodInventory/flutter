@@ -43,14 +43,9 @@ class AppMenuState extends State<AppMenu> {
               label: 'Accueil',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.list_rounded),
-              icon: Icon(Icons.list_outlined),
-              label: 'Liste',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.add_rounded),
-              icon: Icon(Icons.add_outlined),
-              label: 'Ajouter',
+              selectedIcon: Icon(Icons.shopping_bag_rounded),
+              icon: Icon(Icons.shopping_bag_outlined),
+              label: 'Magasin',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.settings_rounded),
@@ -62,7 +57,6 @@ class AppMenuState extends State<AppMenu> {
         body: <Widget>[
           const HomePage(),
           const InventoryPage(),
-          const AddPage(),
           const SettingsPage()
         ][currentPageIndex]);
   }
