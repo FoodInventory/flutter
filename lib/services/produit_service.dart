@@ -90,7 +90,7 @@ class ProduitService {
   Future<http.Response> updateProduit(Produit produit) async {
     var client = http.Client();
     var uri = Uri.parse(
-        'https://foodapi.bastianfabre.fr/api/produits/${produit.barcode}');
+        'https://foodapi.bastianfabre.fr/api/produits/code/${produit.barcode}');
 
     Map<String, dynamic> data = {
       'barcode': produit.barcode.toString(),
