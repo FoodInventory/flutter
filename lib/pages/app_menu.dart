@@ -58,6 +58,14 @@ class AppMenuState extends State<AppMenu> {
           const HomePage(),
           const ShopPage(),
           const SettingsPage()
-        ][currentPageIndex]);
+        ][currentPageIndex],
+        floatingActionButton: currentPageIndex == 1
+            ? FloatingActionButton(
+                onPressed: () {
+                  showDialog(context: context, builder: (_) => const AddPage());
+                },
+                child: const Icon(Icons.add),
+              )
+            : null);
   }
 }
