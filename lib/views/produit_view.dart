@@ -22,6 +22,7 @@ class _ProduitViewState extends State<ProduitView> {
             itemBuilder: (context, index) {
               Produit produit = Produit(
                 nom: snapshot.data![index].nom,
+                categorie: snapshot.data![index].categorie,
                 barcode: snapshot.data![index].barcode,
                 marque: snapshot.data![index].marque,
                 image: snapshot.data![index].image,
