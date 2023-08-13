@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:food_inventory/models/produit.dart';
+import 'package:food_inventory/services/produit_service.dart';
 
 class ProduitCard extends StatefulWidget {
   final Produit produit;
@@ -144,6 +145,19 @@ class _ProduitCardState extends State<ProduitCard> {
                                     ),
                                     TextButton(
                                       onPressed: () {
+                                        Produit newProduit = Produit(
+                                          barcode: widget.produit.barcode,
+                                          categorie: widget.produit.categorie,
+                                          nom: nomController.text,
+                                          marque: marqueController.text,
+                                          quantite: quantiteController.text,
+                                          nombre:
+                                              int.parse(nombreController.text),
+                                          image: widget.produit.image,
+                                        );
+                                        ProduitService.updateProduit(newProduit)
+                                            .then((response) {});
+                                        Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },
                                       child: const Text('Modifier'),
