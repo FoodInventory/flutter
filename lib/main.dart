@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
 
   static final _defaultLightColorScheme = ColorScheme.fromSwatch(
     primarySwatch: Colors.blue,
-    primaryColorDark: Colors.blue[700],
     accentColor: Colors.blueAccent[100],
     backgroundColor: Colors.blue[50],
     brightness: Brightness.light,
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
 
   static final _defaultDarkColorScheme = ColorScheme.fromSwatch(
     primarySwatch: Colors.blue,
-    primaryColorDark: Colors.blue[700],
     accentColor: Colors.blueAccent[100],
     backgroundColor: Colors.blue[50],
     brightness: Brightness.dark,
